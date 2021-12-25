@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ExpenseForm = () => {
-  return <div>welcome to expense form</div>;
+  return <div>formluario de gastos</div>;
 };
 
 export default ExpenseForm;

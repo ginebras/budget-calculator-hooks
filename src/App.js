@@ -19,14 +19,14 @@ function App() {
   return (
     <div>
       <Alert />
-      <h1>Budget calculator</h1>
+      <h1>Calculadora de gastos</h1>
       <main className="App">
         <ExpenseForm />
-        <ExpenseList />
+        <ExpenseList expenses={expenses} />
       </main>
       <h1>
-        Total spending:
-        <span>
+        Gastos totales:
+        <span className="total">
           $
           {expenses.reduce((total, current) => {
             return (total += current.amount);

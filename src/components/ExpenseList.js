@@ -1,12 +1,17 @@
 import React from 'react';
 import ExpenseItems from './ExpenseItems';
 
-const ExpenseList = () => {
+const ExpenseList = ({ expenses }) => {
   return (
-    <div>
-      welcome to expense ExpenseList
-      <ExpenseItems />
-    </div>
+    <>
+      <ul className="list">
+        {expenses.map((expense) => {
+          return <ExpenseItems key={expense.id} expense={expense} />;
+        })}
+      </ul>
+
+      {expenses.length > 0 && <button className="btn">Limpiar gastos</button>}
+    </>
   );
 };
 
