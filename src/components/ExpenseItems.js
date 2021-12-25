@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ExpenseItems = ({ expense }) => {
+const ExpenseItems = ({ expense, handleEdit, handleDelete }) => {
   const { id, charge, amount } = expense;
 
   return (
@@ -10,8 +10,12 @@ const ExpenseItems = ({ expense }) => {
         <span className="amount">${amount}</span>
       </div>
       <div>
-        <button className="btn btn-success">EDITAR</button>
-        <button className="btn btn-danger">ELIMINAR</button>
+        <button className="btn btn-success" onClick={() => handleEdit(id)}>
+          EDITAR
+        </button>
+        <button className="btn btn-danger" onClick={() => handleDelete(id)}>
+          ELIMINAR
+        </button>
       </div>
     </li>
   );

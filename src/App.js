@@ -21,6 +21,8 @@ function App() {
 
   const [alert, setAlert] = useState({ show: false });
 
+  const [edit, setEdit] = useState(false);
+
   const handleCharge = (e) => {
     setCharge(e.target.value);
   };
@@ -29,12 +31,12 @@ function App() {
     setAmount(e.target.value);
   };
 
-  const handleAlert=({type,msg})=>{
-    setAlert({show:true,type,msg});
-    setTimeout(()=>{
-      setAlert({show:false});
-    },3000);
-  }
+  const handleAlert = ({ type, msg }) => {
+    setAlert({ show: true, type, msg });
+    setTimeout(() => {
+      setAlert({ show: false });
+    }, 3000);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,9 +47,30 @@ function App() {
       setExpenses([...expenses, singleExpense]);
       setCharge('');
       setAmount('');
-      handleAlert();
+      handleAlert({
+        type: 'success',
+        msg: 'Se ha añadido el gasto a la lista',
+      });
     } else {
+      handleAlert({ type: 'danger', msg: 'Los campos están vacios' });
     }
+  };
+
+  const handleClear = () => {
+    setExpenses([]);
+    handleAlert({ type: 'success', msg: 'Se han eliminado todos los gastos' });
+  };
+
+  const handleDelete = (id) => {
+    var tempExpenses = expenses.filter((expense) => {
+      expense.id !== id;
+    });
+    setExpenses([tempExpenses]);
+    handleAlert({ type: 'success', msg: 'Se ha eliminado un gasto' });
+  };
+
+  const handleEdit = (id) => {
+    console.log('edit ' + id);
   };
 
   return (
@@ -55,6 +78,7 @@ function App() {
       {alert.show && <Alert type={alert.type} msg={alert.msg} />}
       <Alert />
       <h1>Calculadora de gastos</h1>
+
       <main className="App">
         <ExpenseForm
           charge={charge}
@@ -63,8 +87,15 @@ function App() {
           handleAmount={handleAmount}
           handleSubmit={handleSubmit}
         />
-        <ExpenseList expenses={expenses} />
+
+        <ExpenseList
+          expenses={expenses}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          handleClear={handleClear}
+        />
       </main>
+
       <h1>
         Gastos totales:
         <span className="total">

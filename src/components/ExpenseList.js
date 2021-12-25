@@ -1,12 +1,19 @@
 import React from 'react';
 import ExpenseItems from './ExpenseItems';
 
-const ExpenseList = ({ expenses }) => {
+const ExpenseList = ({ expenses, handleEdit, handleDelete, handleClear }) => {
   return (
     <>
       <ul className="list">
         {expenses.map((expense) => {
-          return <ExpenseItems key={expense.id} expense={expense} />;
+          return (
+            <ExpenseItems
+              key={expense.id}
+              expense={expense}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          );
         })}
       </ul>
 
