@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './css/app.css';
-import { v4 as uuidv4 } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 //COMPONENTS
 import ExpenseForm from './components/ExpenseForm';
@@ -8,9 +8,9 @@ import ExpenseList from './components/ExpenseList';
 import Alert from './components/Alert';
 
 const initialExpenses = [
-  { id: 1, charge: 'car payment', amount: 1233 },
-  { id: 2, charge: 'water', amount: 163 },
-  { id: 3, charge: 'department', amount: 2000 },
+  { id: uuid(), charge: 'car payment', amount: 1233 },
+  { id: uuid(), charge: 'water', amount: 163 },
+  { id: uuid(), charge: 'department', amount: 2000 },
 ];
 
 function App() {
@@ -19,23 +19,40 @@ function App() {
   const [charge, setCharge] = useState('');
   const [amount, setAmount] = useState('');
 
+  const [alert, setAlert] = useState({ show: false });
+
   const handleCharge = (e) => {
     setCharge(e.target.value);
-    console.log('charge=' + e.target.value);
   };
 
   const handleAmount = (e) => {
-    setAmount(e.targe.value);
-    console.log(e);
+    setAmount(e.target.value);
   };
+
+  const handleAlert=({type,msg})=>{
+    setAlert({show:true,type,msg});
+    setTimeout(()=>{
+      setAlert({show:false});
+    },3000);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submit ejecutado');
+    console.log(charge, amount);
+
+    if (charge !== '' && amount > 0) {
+      var singleExpense = { id: uuid(), charge, amount };
+      setExpenses([...expenses, singleExpense]);
+      setCharge('');
+      setAmount('');
+      handleAlert();
+    } else {
+    }
   };
 
   return (
     <div>
+      {alert.show && <Alert type={alert.type} msg={alert.msg} />}
       <Alert />
       <h1>Calculadora de gastos</h1>
       <main className="App">
@@ -53,7 +70,7 @@ function App() {
         <span className="total">
           $
           {expenses.reduce((total, current) => {
-            return (total += current.amount);
+            return (total += parseInt(current.amount));
           }, 0)}
         </span>
       </h1>

@@ -4,8 +4,8 @@ const ExpenseForm = ({
   charge,
   amount,
   handleCharge,
-  handleSubmit,
   handleAmount,
+  handleSubmit,
 }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -25,7 +25,7 @@ const ExpenseForm = ({
         <div className="form-group">
           <label htmlFor="amount">Cantidad</label>
           <input
-            type="text"
+            type="number"
             placeholder="e.g. cantidad"
             name="amount"
             className="form-control"
