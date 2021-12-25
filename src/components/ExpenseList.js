@@ -1,7 +1,13 @@
 import React from 'react';
+import ExpenseItems from './ExpenseItems';
 
 const ExpenseList = () => {
-  return <div>welcome to expense list</div>;
+  return (
+    <div>
+      welcome to expense ExpenseList
+      <ExpenseItems />
+    </div>
+  );
 };
 
 export default ExpenseList;
