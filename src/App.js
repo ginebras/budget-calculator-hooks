@@ -22,6 +22,7 @@ function App() {
   const [alert, setAlert] = useState({ show: false });
 
   const [edit, setEdit] = useState(false);
+  const [id, setId] = useState(0);
 
   const handleCharge = (e) => {
     setCharge(e.target.value);
@@ -57,20 +58,24 @@ function App() {
   };
 
   const handleClear = () => {
+    console.log('Clear');
     setExpenses([]);
     handleAlert({ type: 'success', msg: 'Se han eliminado todos los gastos' });
   };
 
   const handleDelete = (id) => {
-    var tempExpenses = expenses.filter((expense) => {
-      expense.id !== id;
-    });
-    setExpenses([tempExpenses]);
+    let tempExpenses = expenses.filter((item) => item.id !== id);
+    setExpenses(tempExpenses);
     handleAlert({ type: 'success', msg: 'Se ha eliminado un gasto' });
   };
 
   const handleEdit = (id) => {
-    console.log('edit ' + id);
+    let expense = expenses.find((item) => item.id == id);
+    let { charge, amount } = expense;
+    setCharge(charge);
+    setAmount(amount);
+    setEdit(true);
+    setId(id);
   };
 
   return (
@@ -86,6 +91,7 @@ function App() {
           handleCharge={handleCharge}
           handleAmount={handleAmount}
           handleSubmit={handleSubmit}
+          edit={edit}
         />
 
         <ExpenseList

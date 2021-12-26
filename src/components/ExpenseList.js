@@ -17,7 +17,11 @@ const ExpenseList = ({ expenses, handleEdit, handleDelete, handleClear }) => {
         })}
       </ul>
 
-      {expenses.length > 0 && <button className="btn">Limpiar gastos</button>}
+      {expenses.length > 0 && (
+        <button className="btn btn-secondary" onClick={handleClear}>
+          Limpiar gastos
+        </button>
+      )}
     </>
   );
 };
